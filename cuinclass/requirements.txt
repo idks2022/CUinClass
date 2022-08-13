@@ -1,4 +1,14 @@
+asgiref==3.5.2
+awscrt==0.13.8
 Django==4.1
 django-bootstrap-v5==1.0.11
 gunicorn==20.1.0
+jmespath==1.0.1
+python-dateutil==2.8.2
+s3transfer==0.6.0
+six==1.16.0
+soupsieve==2.3.2.post1
+sqlparse==0.4.2
+tzdata==2022.2
+urllib3==1.26.11
 whitenoise==6.2.0
