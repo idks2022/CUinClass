@@ -4,4 +4,4 @@ from django.http import HttpResponse
 
 def attendance(request):
 
-    return render(request,'attendance.html')
+    return render(request,'cuinclass/attendance.html')
