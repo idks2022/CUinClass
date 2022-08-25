@@ -132,6 +132,7 @@ def find_face(collection_id, image):
     print ('Matching faces:')
     for match in faceMatches:
             print ('FaceId:' + match['Face']['FaceId'])
+            print ('FaceName:' + match['Face']['ExternalImageId'])
             print ('Similarity: ' + "{:.2f}".format(match['Similarity']) + "%")
             print
 
@@ -139,7 +140,7 @@ def find_face(collection_id, image):
 
 def main():
     # create_collection('students')
-    # list_collections()
+    list_collections()
     # describe_collection('students')
     # delete_collection('studentsCollection')
     # upload_image('cuinclass/core/fr/facesToCollection/Idan.jpg')
@@ -149,8 +150,8 @@ def main():
     # Rey = 'cuinclass/core/fr/facesToCollection/Rey.jpg'
     # add_faces_to_collection('cuinclass',Rey,'students')
 
-    # imageToScan = 'cuinclass/core/fr/imagesToScan/idan1.jpg'
-    # find_face('students', imageToScan)
+    imageToScan = 'cuinclass/core/fr/imagesToScan/input.jpg'
+    find_face('students', imageToScan)
 
 if __name__ == "__main__":
     main()
