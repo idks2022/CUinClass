@@ -1,6 +1,11 @@
 import boto3
+from pathlib import Path
+from pprint import pprint
+from image_loaders import get_image
+from typing import List
 from botocore.exceptions import ClientError
 from os import environ
+
 
 def create_collection(collection_id):
     client=boto3.client('rekognition')
@@ -81,19 +86,23 @@ def delete_collection(collection_id):
     # return(status_code)
     print('Status code: ' + str(status_code))
 
+ 
+def add_faces_to_collection(bucket,image,collection_id):
 
-def add_faces_to_collection(bucket,photo,collection_id):
-
+    def extract_filename(fname_or_url: str) -> str:
+        import re
+        return re.split('[\\\/]', fname_or_url)[-1]
+    
     client=boto3.client('rekognition')
 
     response=client.index_faces(CollectionId=collection_id,
-                                Image={'S3Object':{'Bucket':bucket,'Name':photo}},
-                                ExternalImageId=photo,
+                                Image={'Bytes': get_image(image)},
+                                ExternalImageId=extract_filename(image) ,
                                 MaxFaces=1,
                                 QualityFilter="AUTO",
                                 DetectionAttributes=['ALL'])
 
-    print ('Results for ' + photo) 	
+    print ('Results for ' + image) 	
     print('Faces indexed:')						
     for faceRecord in response['FaceRecords']:
          print('  Face ID: ' + faceRecord['Face']['FaceId'])
@@ -108,15 +117,40 @@ def add_faces_to_collection(bucket,photo,collection_id):
     print("Faces indexed count: " + str('FaceRecords'))
     # return len(response['FaceRecords'])
 
+def find_face(collection_id, image):
+
+
+    client=boto3.client('rekognition')
+
+    response=client.search_faces_by_image(CollectionId=collection_id,
+                                Image={'Bytes': get_image(image)},
+                                FaceMatchThreshold=70,
+                                MaxFaces=1)
+
+                                
+    faceMatches=response['FaceMatches']
+    print ('Matching faces:')
+    for match in faceMatches:
+            print ('FaceId:' + match['Face']['FaceId'])
+            print ('Similarity: ' + "{:.2f}".format(match['Similarity']) + "%")
+            print
+
+
 
 def main():
-    create_collection('studentsCollection')
-    list_collections()
-    # describe_collection('Collection')
-    # delete_collection('Collection')
-    add_faces_to_collection('cuinclass','cuinclass\core\fr\facesToCollection\Idan.jpg','studentsCollection')
+    # create_collection('students')
+    # list_collections()
+    # describe_collection('students')
+    # delete_collection('studentsCollection')
+    # upload_image('cuinclass/core/fr/facesToCollection/Idan.jpg')
+    
+    # Gal = 'cuinclass/core/fr/facesToCollection/Gal.jpg'
+    # Idan = 'cuinclass/core/fr/facesToCollection/idan.jpg'
+    # Rey = 'cuinclass/core/fr/facesToCollection/Rey.jpg'
+    # add_faces_to_collection('cuinclass',Rey,'students')
 
-
+    # imageToScan = 'cuinclass/core/fr/imagesToScan/idan1.jpg'
+    # find_face('students', imageToScan)
 
 if __name__ == "__main__":
     main()
