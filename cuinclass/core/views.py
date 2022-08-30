@@ -1,6 +1,9 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from .forms import *
+from django.conf import settings
+from django.contrib import messages
+import pyautogui
 
 def attendance(request):
     if request.method == 'POST':
@@ -12,7 +15,3 @@ def attendance(request):
     else:
         form = StudentForm()
     return render(request, 'cuinclass/attendance.html', {'form' : form})
-
-
-def uploadok(request):
-    return HttpResponse(' upload successful')

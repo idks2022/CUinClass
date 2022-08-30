@@ -87,9 +87,8 @@ const doScreenshot = () => {
   canvas.width = video.videoWidth;
   canvas.height = video.videoHeight;
   canvas.getContext('2d').drawImage(video, 0, 0);
-  screenshotImage.src = canvas.toDataURL('image/webp');
+  screenshotImage.src = canvas.toDataURL('image/jpeg');
   screenshotImage.classList.remove('d-none');
-  
 };
 
 pause.onclick = pauseStream;
