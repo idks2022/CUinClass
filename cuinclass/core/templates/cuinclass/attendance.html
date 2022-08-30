@@ -1,5 +1,7 @@
 {% extends 'cuinclass/base.html' %}
+
 {% load static %}
+
 {% block content %}
 <div class="display-cover">
     <video autoplay></video>
@@ -24,6 +26,9 @@
     {{ form.as_p }}
     <button type="submit">Upload</button>
 </form>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://unpkg.com/feather-icons"></script>
 <script src="{% static 'cuinclass/attendance.js' %}"></script>
+
+
 {% endblock %}

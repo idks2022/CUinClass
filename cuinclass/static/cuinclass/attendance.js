@@ -87,9 +87,19 @@ const doScreenshot = () => {
   canvas.width = video.videoWidth;
   canvas.height = video.videoHeight;
   canvas.getContext('2d').drawImage(video, 0, 0);
-  screenshotImage.src = canvas.toDataURL('image/jpeg');
+  screenshotImage.src = canvas.toDataURL();
+  sendImage(screenshotImage.src)
   screenshotImage.classList.remove('d-none');
+
 };
+
+const sendImage = async (image) => {
+  const url = "http://localhost:8000/fr-image/"
+  const response = await axios.post(url, image)
+  console.log(response.data)
+}
+
+
 
 pause.onclick = pauseStream;
 screenshot.onclick = doScreenshot;

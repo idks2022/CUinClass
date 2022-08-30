@@ -1,7 +1,7 @@
-import boto3
+import boto3 
 from pathlib import Path
 from pprint import pprint
-from image_loaders import get_image
+from core.fr.image_loaders import get_image
 from typing import List
 from botocore.exceptions import ClientError
 from os import environ
@@ -119,9 +119,9 @@ def add_faces_to_collection(bucket,image,collection_id):
 
 def find_face(collection_id, image):
 
-
+    print('Searching for face match...')
     client=boto3.client('rekognition')
-
+    
     response=client.search_faces_by_image(CollectionId=collection_id,
                                 Image={'Bytes': get_image(image)},
                                 FaceMatchThreshold=70,
@@ -129,12 +129,16 @@ def find_face(collection_id, image):
 
                                 
     faceMatches=response['FaceMatches']
-    print ('Matching faces:')
-    for match in faceMatches:
+    result = 'Matching faces: '
+    if len(faceMatches) > 0:
+        for match in faceMatches:
+            print(result)
             print ('FaceId:' + match['Face']['FaceId'])
+            print ('FaceName:' + match['Face']['ExternalImageId'])
             print ('Similarity: ' + "{:.2f}".format(match['Similarity']) + "%")
-            print
-
+    else:
+        result += 'There is no match'
+        print(result)
 
 
 def main():
@@ -149,7 +153,7 @@ def main():
     # Rey = 'cuinclass/core/fr/facesToCollection/Rey.jpg'
     # add_faces_to_collection('cuinclass',Rey,'students')
 
-    # imageToScan = 'cuinclass/core/fr/imagesToScan/idan1.jpg'
+    # imageToScan = 'cuinclass/core/fr/imagesToScan/sarah.jpg'
     # find_face('students', imageToScan)
 
 if __name__ == "__main__":
