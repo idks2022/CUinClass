@@ -143,7 +143,7 @@ def find_face(collection_id, image):
 
 def main():
     # create_collection('students')
-    # list_collections()
+    list_collections()
     # describe_collection('students')
     # delete_collection('studentsCollection')
     # upload_image('cuinclass/core/fr/facesToCollection/Idan.jpg')
