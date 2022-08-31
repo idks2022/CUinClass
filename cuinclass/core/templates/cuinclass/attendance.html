@@ -1,8 +1,26 @@
-{% extends 'cuinclass/base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    {% bootstrap_messages %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'cuinclass/attendance.css' %}">
 
-{% load static %}
+    <title>CUinClass</title>
+</head>
+<body>
 
 {% block content %}
+
+
+<div class="display-cover">
+    <p id="test">present response</p>
+</div>
 <div class="display-cover">
     <video autoplay></video>
     <canvas class="d-none"></canvas>
@@ -21,14 +39,12 @@
         <button class="btn btn-outline-success screenshot d-none" title="ScreenShot"><i data-feather="image"></i></button>
     </div>
 </div>
-<form method = "POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Upload</button>
-</form>
+
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://unpkg.com/feather-icons"></script>
 <script src="{% static 'cuinclass/attendance.js' %}"></script>
 
-
 {% endblock %}
+
+</body>
+</html>

@@ -12,15 +12,7 @@ from datauri import DataURI
 
 
 def attendance(request):
-    if request.method == 'POST':
-        form = StudentForm(request.POST, request.FILES)
-  
-        if form.is_valid():
-            form.save()
-            return redirect('attendance')
-    else:
-        form = StudentForm()
-    return render(request, 'cuinclass/attendance.html', {'form' : form})
+    return render(request, 'cuinclass/attendance.html')
 
 @csrf_exempt
 def fr_image(request):
@@ -31,4 +23,4 @@ def fr_image(request):
             fh.write(base64.decodebytes(base64_image))
         find_face('students', "imageToSave.png")
         
-    return HttpResponse(content="Got the image")
+    return HttpResponse(content= "string")

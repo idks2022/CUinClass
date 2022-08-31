@@ -1,3 +1,6 @@
+#test{
+    color: green;
+}
 
 .screenshot-image {
     width: 150px;
@@ -103,5 +106,5 @@ video {
 }
 
 .controls > button:hover svg {
-    color: white;
+    color: rgb(225, 0, 255);
 }

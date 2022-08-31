@@ -8,6 +8,8 @@ const screenshotImage = document.querySelector('img');
 const buttons = [...controls.querySelectorAll('button')];
 let streamStarted = false;
 
+
+
 const [play, pause, screenshot] = buttons;
 
 const constraints = {
@@ -35,6 +37,7 @@ const getCameraSelection = async () => {
 };
 
 play.onclick = () => {
+  
   if (streamStarted) {
     video.play();
     play.classList.add('d-none');
@@ -94,11 +97,14 @@ const doScreenshot = () => {
 };
 
 const sendImage = async (image) => {
+  document.getElementById("test").innerHTML = "scanning...";
   const url = "http://localhost:8000/fr-image/"
-  const response = await axios.post(url, image)
+  const response = await axios.post(url, image, responseType='text')
+  document.getElementById("test").innerHTML = "hello name";
   console.log(response.data)
-}
-
+  
+  
+};
 
 
 pause.onclick = pauseStream;
