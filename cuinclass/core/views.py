@@ -21,6 +21,7 @@ def fr_image(request):
         base64_image = base64_image.replace(b'data:image/png;base64,', b'')
         with open("imageToSave.png", "wb") as fh:
             fh.write(base64.decodebytes(base64_image))
-        find_face('students', "imageToSave.png")
-        
-    return HttpResponse(content= "string")
+        global answer
+        answer = find_face('students', "imageToSave.png")
+    
+    return HttpResponse(content = answer)

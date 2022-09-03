@@ -97,13 +97,27 @@ const doScreenshot = () => {
 };
 
 const sendImage = async (image) => {
-  document.getElementById("test").innerHTML = "scanning...";
-  const url = "http://localhost:8000/fr-image/"
-  const response = await axios.post(url, image, responseType='text')
-  document.getElementById("test").innerHTML = "hello name";
-  console.log(response.data)
-  
-  
+    
+    const headline = document.getElementById("test");
+    headline.innerHTML = "scanning for familiar face...";
+    const url = "http://localhost:8000/fr-image/";
+    try {
+      const response = await axios.post(url, image);
+      console.log(response.data);
+      if (response.data=="None"){
+        headline.innerHTML = "Sorry, I couldn't recognize you. Try again or talk to the lecturer"
+      }
+      else { 
+        let responseText = response.data;
+        const splitText = text.split(".");
+        let finalText = splitText[0];
+        headline.innerHTML = "Welcome to class "+response.data
+      }
+    }catch (error) {
+      console.error(error)
+      headline.innerHTML = "There was a problem in the scanning process. Try again or talk to the lecturer"
+    }
+    
 };
 
 

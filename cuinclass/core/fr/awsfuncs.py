@@ -136,7 +136,7 @@ def find_face(collection_id, image):
             print ('FaceId:' + match['Face']['FaceId'])
             print ('FaceName:' + match['Face']['ExternalImageId'])
             print ('Similarity: ' + "{:.2f}".format(match['Similarity']) + "%")
-
+            return (match['Face']['ExternalImageId'])
     else:
         result += 'There is no match'
         print(result)
