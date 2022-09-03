@@ -98,20 +98,21 @@ const doScreenshot = () => {
 
 const sendImage = async (image) => {
     
-    const headline = document.getElementById("test");
+    const headline = document.getElementById("textToUser");
     headline.innerHTML = "scanning for familiar face...";
     const url = "http://localhost:8000/fr-image/";
     try {
       const response = await axios.post(url, image);
       console.log(response.data);
+      // headline.innerHTML = response.data;
       if (response.data=="None"){
         headline.innerHTML = "Sorry, I couldn't recognize you. Try again or talk to the lecturer"
       }
       else { 
         let responseText = response.data;
-        const splitText = text.split(".");
+        const splitText = responseText.split(".");
         let finalText = splitText[0];
-        headline.innerHTML = "Welcome to class "+response.data
+        headline.innerHTML = "Welcome to class "+finalText;
       }
     }catch (error) {
       console.error(error)

@@ -17,10 +17,18 @@
 
 {% block content %}
 
+{% comment %} <div class="display-cover">
+    <img src="{% static 'cuinclass/images/CUinclass-banner.png' %}" alt="banner">
+</div> {% endcomment %}
 
 <div class="display-cover">
-    <p id="test">present response</p>
+    <p id="textToUser">Take a picture so I can see you</p>
 </div>
+
+<div id="activate">
+    <button class="btn btn-outline-success screenshot d-none" title="ScreenShot"><i data-feather="image"></i></button>
+</div>
+
 <div class="display-cover">
     <video autoplay></video>
     <canvas class="d-none"></canvas>
@@ -38,6 +46,8 @@
         <button class="btn btn-info pause d-none" title="Pause"><i data-feather="pause"></i></button>
         <button class="btn btn-outline-success screenshot d-none" title="ScreenShot"><i data-feather="image"></i></button>
     </div>
+
+    
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
