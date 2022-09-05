@@ -1,5 +1,5 @@
 #textToUser{
-    color: green;
+    color: rgb(0, 144, 62);
 }
 
 .screenshot-image {
@@ -39,6 +39,12 @@ video {
     right: 20px;
     top: 20px;
     display: flex;
+}
+
+#mainbtn{
+    display: flex;
+    justify-content: center;
+    margin: 0px 100px
 }
 
 .controls > button {

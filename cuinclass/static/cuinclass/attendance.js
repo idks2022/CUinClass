@@ -99,7 +99,7 @@ const doScreenshot = () => {
 const sendImage = async (image) => {
     
     const headline = document.getElementById("textToUser");
-    headline.innerHTML = "scanning for familiar face...";
+    headline.innerHTML = "scanning for a familiar face...";
     const url = "http://localhost:8000/fr-image/";
     try {
       const response = await axios.post(url, image);
