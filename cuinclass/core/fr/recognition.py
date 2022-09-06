@@ -1,6 +1,5 @@
 from pickle import TRUE
 import boto3
-import csv
 
 # def get_rekognition_connection():
 #     #get aws rekognition connection

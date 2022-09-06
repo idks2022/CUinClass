@@ -1,10 +1,6 @@
 import boto3 
-from pathlib import Path
-from pprint import pprint
 from core.fr.image_loaders import get_image
-from typing import List
 from botocore.exceptions import ClientError
-from os import environ
 
 
 def create_collection(collection_id):

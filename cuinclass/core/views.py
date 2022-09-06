@@ -1,14 +1,9 @@
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from .forms import *
-from django.conf import settings
-from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 from core.fr.awsfuncs import find_face
-import json
-import pyautogui
 import base64
-from datauri import DataURI
 
 
 def attendance(request):
@@ -25,3 +20,4 @@ def fr_image(request):
         answer = find_face('students', "imageToSave.png")
     
     return HttpResponse(content = answer)
+
