@@ -8,6 +8,8 @@ const screenshotImage = document.querySelector('img');
 const buttons = [...controls.querySelectorAll('button')];
 let streamStarted = false;
 
+
+
 const [play, pause, screenshot] = buttons;
 
 const constraints = {
@@ -35,6 +37,7 @@ const getCameraSelection = async () => {
 };
 
 play.onclick = () => {
+  
   if (streamStarted) {
     video.play();
     play.classList.add('d-none');
@@ -87,10 +90,37 @@ const doScreenshot = () => {
   canvas.width = video.videoWidth;
   canvas.height = video.videoHeight;
   canvas.getContext('2d').drawImage(video, 0, 0);
-  screenshotImage.src = canvas.toDataURL('image/jpeg');
+  screenshotImage.src = canvas.toDataURL();
+  sendImage(screenshotImage.src)
   screenshotImage.classList.remove('d-none');
 
 };
+
+const sendImage = async (image) => {
+    
+    const headline = document.getElementById("textToUser");
+    headline.innerHTML = "scanning for a familiar face...";
+    const url = "http://localhost:8000/fr-image/";
+    try {
+      const response = await axios.post(url, image);
+      console.log(response.data);
+      // headline.innerHTML = response.data;
+      if (response.data=="None"){
+        headline.innerHTML = "Sorry, I couldn't recognize you. Try again or talk to the lecturer"
+      }
+      else { 
+        let responseText = response.data;
+        const splitText = responseText.split(".");
+        let finalText = splitText[0];
+        headline.innerHTML = "Welcome to class "+finalText;
+      }
+    }catch (error) {
+      console.error(error)
+      headline.innerHTML = "There was a problem in the scanning process. Try again or talk to the lecturer"
+    }
+    
+};
+
 
 pause.onclick = pauseStream;
 screenshot.onclick = doScreenshot;

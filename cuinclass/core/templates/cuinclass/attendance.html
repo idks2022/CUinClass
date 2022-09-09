@@ -1,29 +1,56 @@
-{% extends 'cuinclass/base.html' %}
-{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    {% bootstrap_messages %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'cuinclass/attendance.css' %}">
+    <link rel="icon" href="data:,">
+
+    <title>CUinClass</title>
+</head>
+<body>
+
 {% block content %}
-<div class="display-cover">
-    <video autoplay></video>
-    <canvas class="d-none"></canvas>
 
-    <div class="video-options">
-        <select name="" id="" class="custom-select">
-            <option value="">Select camera</option>
-        </select>
+    {% comment %} <img id="banner" src="{% static 'cuinclass/images/CUinclass-banner.png' %}" class="img-fluid" alt="banner"> {% endcomment %}
+
+    <div class="display-cover">
+        <p class="display-4 "id="textToUser">Take a picture so I can see you</p>
     </div>
 
-    <img class="screenshot-image d-none" alt="">
+    <div class="display-cover">
+        <video autoplay></video>
+        <canvas class="d-none"></canvas>
 
-    <div class="controls">
-        <button class="btn btn-danger play" title="Play"><i data-feather="play-circle"></i></button>
-        <button class="btn btn-info pause d-none" title="Pause"><i data-feather="pause"></i></button>
-        <button class="btn btn-outline-success screenshot d-none" title="ScreenShot"><i data-feather="image"></i></button>
+        <div class="video-options">
+            <select name="" id="" class="custom-select">
+                <option value="">Select camera</option>
+            </select>
+        </div>
+
+        <img class="screenshot-image d-none" alt="">
+
+        <div class="controls">
+            <button class="btn btn-danger play" title="Play"><i data-feather="play"></i></button>
+            <button class="btn btn-info pause d-none" title="Pause"><i data-feather="pause"></i></button>
+            <button class="btn btn-outline-success screenshot d-none" title="ScreenShot"><i data-feather="airplay"></i></button>
+        </div>
+
     </div>
-</div>
-<form method = "POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Upload</button>
-</form>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://unpkg.com/feather-icons"></script>
 <script src="{% static 'cuinclass/attendance.js' %}"></script>
+
+
+
 {% endblock %}
+
+</body>
+</html>
