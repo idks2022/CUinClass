@@ -4,6 +4,7 @@ from .forms import *
 from django.views.decorators.csrf import csrf_exempt
 from core.fr.awsfuncs import find_face
 import base64
+from .models import Session, Student
 
 
 def attendance(request):
@@ -20,4 +21,9 @@ def fr_image(request):
         answer = find_face('students', "imageToSave.png")
     
     return HttpResponse(content = answer)
+
+def report(response, id):
+    session = Session.objects.get(id=id)
+    students = session.student_set.get(id=1)
+    return HttpResponse("<h1>%s</h1><br></br><p>%s</p>" %(session.name, str(students.name)))
 
