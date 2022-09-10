@@ -1,0 +1,14 @@
+{% extends 'cuinclass/base.html' %}
+
+{% block content %}
+    <h1>Checked in students</h1>
+    <p>{{session}}</p>
+    <ul>
+        {% for student in session.student_set.all %}
+            {% if student.signed == True %}
+                <li>{{student.name}}
+            {% endif %}
+        {% endfor %}
+    </ul>
+
+{% endblock content %}

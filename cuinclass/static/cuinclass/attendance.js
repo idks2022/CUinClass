@@ -110,7 +110,7 @@ const sendImage = async (image) => {
       }
       else { 
         let responseText = response.data;
-        const splitText = responseText.split(".");
+        const splitText = responseText.split("_");
         let finalText = splitText[0];
         headline.innerHTML = "Welcome to class "+finalText;
       }

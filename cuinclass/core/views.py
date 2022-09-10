@@ -19,11 +19,17 @@ def fr_image(request):
             fh.write(base64.decodebytes(base64_image))
         global answer
         answer = find_face('students', "imageToSave.png")
+        if(answer):
+            responseText = answer
+            splitText = responseText.split(".")
+            finalText = splitText[0]
+            session = Session.objects.get(id=1)
+            session.student_set.create(name=str(finalText), signed=True)
     
     return HttpResponse(content = answer)
 
-def report(response, id):
-    session = Session.objects.get(id=id)
-    students = session.student_set.get(id=1)
-    return HttpResponse("<h1>%s</h1><br></br><p>%s</p>" %(session.name, str(students.name)))
+def report(response):
+    session = Session.objects.get(id=1)
+    # student = session.student_set.get(id=id)
+    return render(response, 'cuinclass/report.html', {"session":session})
 

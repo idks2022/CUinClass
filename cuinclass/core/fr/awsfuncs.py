@@ -113,6 +113,52 @@ def add_faces_to_collection(bucket,image,collection_id):
     print("Faces indexed count: " + str('FaceRecords'))
     # return len(response['FaceRecords'])
 
+def list_faces_in_collection(collection_id):
+    
+
+
+
+
+    maxResults=20
+    faces_count=0
+    tokens=True
+
+    client=boto3.client('rekognition')
+    response=client.list_faces(CollectionId=collection_id,
+                               MaxResults=maxResults)
+
+    print('Faces in collection ' + collection_id)
+
+ 
+    while tokens:
+
+        faces=response['Faces']
+
+        for face in faces:
+            print (face)
+            faces_count+=1
+        if 'NextToken' in response:
+            nextToken=response['NextToken']
+            response=client.list_faces(CollectionId=collection_id,
+                                       NextToken=nextToken,MaxResults=maxResults)
+        else:
+            tokens=False
+    return faces_count   
+
+
+def delete_faces_from_collection(collection_id, faces):
+
+    client=boto3.client('rekognition')
+
+    response=client.delete_faces(CollectionId=collection_id,
+                               FaceIds=faces)
+    
+    print(str(len(response['DeletedFaces'])) + ' faces deleted:') 							
+    for faceId in response['DeletedFaces']:
+         print (faceId)
+    return len(response['DeletedFaces'])
+
+
 def find_face(collection_id, image):
 
     print('Searching for face match...')
@@ -141,18 +187,26 @@ def find_face(collection_id, image):
 
 def main():
     # create_collection('students')
-    list_collections()
+    # list_collections()
     # describe_collection('students')
     # delete_collection('studentsCollection')
     # upload_image('cuinclass/core/fr/facesToCollection/Idan.jpg')
     
-    # Gal = 'cuinclass/core/fr/facesToCollection/Gal.jpg'
-    # Idan = 'cuinclass/core/fr/facesToCollection/idan.jpg'
-    # Rey = 'cuinclass/core/fr/facesToCollection/Rey.jpg'
+    # Gal = 'cuinclass/core/fr/facesToCollection/Gal_Sadres.jpg'
+    # Idan = 'cuinclass/core/fr/facesToCollection/Idan_Kashi.jpg'
+    # Rey = 'cuinclass/core/fr/facesToCollection/Rey_Hadas.jpg'
     # add_faces_to_collection('cuinclass',Rey,'students')
 
     # imageToScan = 'cuinclass/core/fr/imagesToScan/sarah.jpg'
     # find_face('students', imageToScan)
+    
+    faces_count=list_faces_in_collection('students')
+    print("faces count: " + str(faces_count))
+    
+    # faces=[]
+    # faces.append("f45b9217-3175-4cd4-8ad7-c12284547ae2")
+    # faces_count=delete_faces_from_collection('students', faces)
+    # print("deleted faces count: " + str(faces_count))
 
 if __name__ == "__main__":
     main()

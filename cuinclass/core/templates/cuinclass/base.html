@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% load bootstrap5 %}
     {% bootstrap_css %}
@@ -10,10 +10,10 @@
     {% bootstrap_messages %}
     {% load static %}
     <link rel="stylesheet" href="{% static 'cuinclass/attendance.css' %}">
+    <link rel="icon" href="data:,">
     
     <title>CUinClass</title>
 
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
     {% block content %}
