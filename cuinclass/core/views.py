@@ -1,6 +1,5 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-from .forms import *
 from django.views.decorators.csrf import csrf_exempt
 from core.fr.awsfuncs import find_face
 import base64
@@ -22,14 +21,24 @@ def fr_image(request):
         if(answer):
             responseText = answer
             splitText = responseText.split(".")
-            finalText = splitText[0]
+            cleanName = splitText[0]
             session = Session.objects.get(id=1)
-            session.student_set.create(name=str(finalText), signed=True)
-    
+
+            for student in session.student_set.all():
+                if student.name ==  cleanName:
+                    student.signed = True
+                    student.save()
+                    
     return HttpResponse(content = answer)
 
 def report(response):
     session = Session.objects.get(id=1)
     # student = session.student_set.get(id=id)
+    {"clear":["clear"]}
+    if response.POST.get("clear"):
+        for student in session.student_set.all():
+            student.signed = False
+            student.save()
+            
     return render(response, 'cuinclass/report.html', {"session":session})
 

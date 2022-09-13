@@ -16,7 +16,18 @@
 
 </head>
 <body>
+    <div class="display-cover">
+        <img id="banner" src="{% static 'cuinclass/images/CUinclass-banner.png' %}" class="img-fluid" alt="banner">
+    </div>
+    <div class="display-cover">
+        <div class="btn-group" role="group" aria-label="Basic outlined example">
+            <button type="button" class="btn btn-outline-primary" onclick="location.href='/admin'">manage</button>
+            <button type="button" class="btn btn-outline-primary" onclick="location.href='/'">CHECK IN</button>
+            <button type="button" class="btn btn-outline-primary" onclick="location.href='/report'"> report</button>
+        </div>
+    </div>
     {% block content %}
     {% endblock content %}
+    
 </body>
 </html>

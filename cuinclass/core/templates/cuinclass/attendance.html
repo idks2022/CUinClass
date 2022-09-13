@@ -14,13 +14,26 @@
 
     <title>CUinClass</title>
 </head>
-<body>
+<body> 
 
+
+    
 {% block content %}
+    
 
+<div class="display-cover">
     {% comment %} <img id="banner" src="{% static 'cuinclass/images/CUinclass-banner.png' %}" class="img-fluid" alt="banner"> {% endcomment %}
+</div>
+    <div class="display-cover">
+        <div class="btn-group" role="group" aria-label="Basic outlined example">
+            <button type="button" class="btn btn-outline-primary" onclick="location.href='/admin'">manage</button>
+            <button type="button" class="btn btn-outline-primary" onclick="location.href='/'">CHECK IN</button>
+            <button type="button" class="btn btn-outline-primary" onclick="location.href='/report'"> report</button>
+        </div>
+    </div>
 
     <div class="display-cover">
+        
         <p class="display-5 "id="textToUser">Take a picture so I can see you</p>
     </div>
 
