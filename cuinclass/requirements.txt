@@ -46,7 +46,7 @@ PyScreeze==0.1.28
 python-datauri==1.1.0
 python-dateutil==2.8.2
 pytweening==1.0.4
-pywin32==304
+# pywin32==304
 pyzmq==23.2.1
 requests==2.28.1
 s3transfer==0.6.0
