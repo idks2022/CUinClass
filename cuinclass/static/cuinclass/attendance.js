@@ -99,24 +99,36 @@ const doScreenshot = () => {
 const sendImage = async (image) => {
     
     const headline = document.getElementById("textToUser");
-    headline.innerHTML = "scanning for a familiar face...";
+    const alertbox = document.getElementById("alertbox");
+    const alerticon = document.getElementById("alerticon");
+    const spinner = document.getElementById("spinner");
+    headline.innerHTML = "<strong>Scanning</strong> for a familiar face...";
+    alertbox.className = "alert alert-info d-flex align-items-center";
+    alerticon.setAttribute("href","#info-fill");
+    spinner.setAttribute("hidden","False");
     const url = "http://localhost:8000/fr-image/";
     try {
       const response = await axios.post(url, image);
       console.log(response.data);
       // headline.innerHTML = response.data;
       if (response.data=="None"){
-        headline.innerHTML = "Sorry, I couldn't recognize you. Try again or talk to the lecturer"
+        headline.innerHTML = "<strong>Sorry, I couldn't recognize you.</strong> Try again or talk to the lecturer";
+        alertbox.className = "alert alert-warning d-flex align-items-center";
+        alerticon.setAttribute("href","#exclamation-triangle-fill");
       }
       else { 
         let responseText = response.data;
         const splitText = responseText.split("_");
         let finalText = splitText[0];
-        headline.innerHTML = "Welcome to class "+finalText;
+        headline.innerHTML = "Welcome to class <strong>"+finalText+"</strong>";
+        alertbox.className = "alert alert-success d-flex align-items-center";
+        alerticon.setAttribute("href","#check-circle-fill");
       }
     }catch (error) {
       console.error(error)
-      headline.innerHTML = "There was a problem in the scanning process. Try again or talk to the lecturer"
+      headline.innerHTML = "<strong>There was a problem in the scanning process.</strong> Try again or talk to the lecturer"
+      alertbox.className = "alert alert-danger d-flex align-items-center";
+      alerticon.setAttribute("href","#exclamation-triangle-fill");
     }
     
 };

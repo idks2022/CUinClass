@@ -1,6 +1,3 @@
-#textToUser{
-    color: rgb(0, 144, 62);
-}
 
 .screenshot-image {
     width: 150px;
@@ -18,8 +15,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 70%;
-    margin: 5% auto;
+    width: 90%;
+    margin: 2.5% auto;
     position: relative;
 }
 
@@ -113,4 +110,18 @@ video {
 
 .controls > button:hover svg {
     color: rgb(225, 0, 255);
+}
+
+.tbody{
+    counter-reset: item 0;
+}
+
+.trow{
+    counter-increment: item;
+}
+
+.trow::before{
+    content: counter(item);
+    display: inline;
+
 }

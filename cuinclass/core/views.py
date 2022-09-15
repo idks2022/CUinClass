@@ -18,6 +18,7 @@ def fr_image(request):
             fh.write(base64.decodebytes(base64_image))
         global answer
         answer = find_face('students', "imageToSave.png")
+        
         if(answer):
             responseText = answer
             splitText = responseText.split(".")
@@ -28,8 +29,10 @@ def fr_image(request):
                 if student.name ==  cleanName:
                     student.signed = True
                     student.save()
-                    
-    return HttpResponse(content = answer)
+                    return HttpResponse(content = cleanName)
+                
+            return HttpResponse(content = "None") 
+    # return HttpResponse(content = answer)
 
 def report(response):
     session = Session.objects.get(id=1)
