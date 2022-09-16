@@ -1,6 +1,13 @@
 import boto3 
 from core.fr.image_loaders import get_image
 from botocore.exceptions import ClientError
+# from cuinclass.settings import AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_STORAGE_BUCKET_NAME, AWS_REGION
+import os
+
+AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
+AWS_STORAGE_BUCKET_NAME = os.getenv("AWS_STORAGE_BUCKET_NAME")
+AWS_REGION = os.getenv("AWS_REGION")
 
 
 def create_collection(collection_id):
@@ -162,7 +169,9 @@ def delete_faces_from_collection(collection_id, faces):
 def find_face(collection_id, image):
 
     print('Searching for face match...')
-    client=boto3.client('rekognition')
+    client=boto3.client('rekognition',
+                        aws_access_key_id=AWS_ACCESS_KEY_ID,
+                        aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
     
     response=client.search_faces_by_image(CollectionId=collection_id,
                                 Image={'Bytes': get_image(image)},
