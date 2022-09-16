@@ -171,7 +171,8 @@ def find_face(collection_id, image):
     print('Searching for face match...')
     client=boto3.client('rekognition',
                         aws_access_key_id=AWS_ACCESS_KEY_ID,
-                        aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
+                        aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
+                        region_name=AWS_REGION)
     
     response=client.search_faces_by_image(CollectionId=collection_id,
                                 Image={'Bytes': get_image(image)},
