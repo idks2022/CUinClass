@@ -106,7 +106,8 @@ const sendImage = async (image) => {
     alertbox.className = "alert alert-info d-flex align-items-center";
     alerticon.setAttribute("href","#info-fill");
     spinner.setAttribute("hidden","False");
-    // const url = "http://localhost:8000/fr-image/";
+    //>>>NOTE: on development mode use the localhost url (line 110), on server deployment use the server domain (line 111).
+    //const url = "http://localhost:8000/fr-image/";
     const url = "https://cuinclass-app-xbilh.ondigitalocean.app/fr-image/";
     try {
       const response = await axios.post(url, image);

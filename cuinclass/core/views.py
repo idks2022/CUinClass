@@ -30,9 +30,8 @@ def fr_image(request):
                     student.signed = True
                     student.save()
                     return HttpResponse(content = cleanName)
-                
-            return HttpResponse(content = "None") 
-    # return HttpResponse(content = answer)
+
+            return HttpResponse(content = answer) 
 
 def report(response):
     session = Session.objects.get(id=1)

@@ -14,6 +14,7 @@ dj-database-url==1.0.0
 Django==4.1
 django-bootstrap-v5==1.0.11
 django-cors-headers==3.13.0
+django-environ==0.9.0
 entrypoints==0.4
 executing==0.10.0
 gunicorn==20.1.0
@@ -45,6 +46,7 @@ PyRect==0.2.0
 PyScreeze==0.1.28
 python-datauri==1.1.0
 python-dateutil==2.8.2
+python-dotenv==0.21.0
 pytweening==1.0.4
 # pywin32==304
 pyzmq==23.2.1

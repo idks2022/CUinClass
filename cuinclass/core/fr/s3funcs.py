@@ -1,4 +1,3 @@
-from pickle import TRUE
 import boto3
 
 # def get_rekognition_connection():

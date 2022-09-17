@@ -3,15 +3,22 @@ from core.fr.image_loaders import get_image
 from botocore.exceptions import ClientError
 # from cuinclass.settings import AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_STORAGE_BUCKET_NAME, AWS_REGION
 import os
+from dotenv import load_dotenv
+load_dotenv()
 
-AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
-AWS_STORAGE_BUCKET_NAME = os.getenv("AWS_STORAGE_BUCKET_NAME")
-AWS_REGION = os.getenv("AWS_REGION")
+#AWS credentials read from .env file (locally) or environment variables when deployed on server
+AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
+AWS_REGION = os.getenv('AWS_REGION')
 
+client=boto3.client('rekognition',
+                    aws_access_key_id=AWS_ACCESS_KEY_ID,
+                    aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
+                    region_name=AWS_REGION)
 
 def create_collection(collection_id):
-    client=boto3.client('rekognition')
+    # client=boto3.client('rekognition') //line16
 
     #Create a collection
     print('Creating collection:' + collection_id)
@@ -22,10 +29,8 @@ def create_collection(collection_id):
     
 
 def list_collections():
-
+    # client=boto3.client('rekognition') //line16
     max_results=2
-    
-    client=boto3.client('rekognition')
 
     #Display all the collections
     print('Displaying collections...')
@@ -52,7 +57,7 @@ def list_collections():
 def describe_collection(collection_id):
 
     print('Attempting to describe collection ' + collection_id)
-    client=boto3.client('rekognition')
+    # client=boto3.client('rekognition') //line16
 
     try:
         response=client.describe_collection(CollectionId=collection_id)
@@ -74,7 +79,7 @@ def delete_collection(collection_id):
 
 
     print('Attempting to delete collection ' + collection_id)
-    client=boto3.client('rekognition')
+    # client=boto3.client('rekognition') //line16
     status_code=0
     try:
         response=client.delete_collection(CollectionId=collection_id)
@@ -96,7 +101,7 @@ def add_faces_to_collection(bucket,image,collection_id):
         import re
         return re.split('[\\\/]', fname_or_url)[-1]
     
-    client=boto3.client('rekognition')
+    # client=boto3.client('rekognition') //line16
 
     response=client.index_faces(CollectionId=collection_id,
                                 Image={'Bytes': get_image(image)},
@@ -122,15 +127,11 @@ def add_faces_to_collection(bucket,image,collection_id):
 
 def list_faces_in_collection(collection_id):
     
-
-
-
-
     maxResults=20
     faces_count=0
     tokens=True
 
-    client=boto3.client('rekognition')
+    # client=boto3.client('rekognition') //line16
     response=client.list_faces(CollectionId=collection_id,
                                MaxResults=maxResults)
 
@@ -155,7 +156,7 @@ def list_faces_in_collection(collection_id):
 
 def delete_faces_from_collection(collection_id, faces):
 
-    client=boto3.client('rekognition')
+    # client=boto3.client('rekognition') //line16
 
     response=client.delete_faces(CollectionId=collection_id,
                                FaceIds=faces)
@@ -169,10 +170,7 @@ def delete_faces_from_collection(collection_id, faces):
 def find_face(collection_id, image):
 
     print('Searching for face match...')
-    client=boto3.client('rekognition',
-                        aws_access_key_id=AWS_ACCESS_KEY_ID,
-                        aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
-                        region_name=AWS_REGION)
+    #client=boto3.client('rekognition') //line16
     
     response=client.search_faces_by_image(CollectionId=collection_id,
                                 Image={'Bytes': get_image(image)},
@@ -197,7 +195,7 @@ def find_face(collection_id, image):
 
 def main():
     # create_collection('students')
-    # list_collections()
+    list_collections()
     # describe_collection('students')
     # delete_collection('studentsCollection')
     # upload_image('cuinclass/core/fr/facesToCollection/Idan.jpg')
@@ -210,8 +208,8 @@ def main():
     # imageToScan = 'cuinclass/core/fr/imagesToScan/sarah.jpg'
     # find_face('students', imageToScan)
     
-    faces_count=list_faces_in_collection('students')
-    print("faces count: " + str(faces_count))
+    # faces_count=list_faces_in_collection('students')
+    # print("faces count: " + str(faces_count))
     
     # faces=[]
     # faces.append("f45b9217-3175-4cd4-8ad7-c12284547ae2")
