@@ -26,12 +26,14 @@ def fr_image(request):
             session = Session.objects.get(id=1)
 
             for student in session.student_set.all():
-                if student.name ==  cleanName:
+                if student.name == cleanName:
                     student.signed = True
                     student.save()
-                    return HttpResponse(content = cleanName)
+                    return HttpResponse(content = answer)
+                else: 
+                    return HttpResponse(content = None)
 
-            return HttpResponse(content = answer) 
+        return HttpResponse(content = answer) 
 
 def report(response):
     session = Session.objects.get(id=1)
