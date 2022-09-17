@@ -4,7 +4,7 @@ const controls = document.querySelector('.controls');
 const cameraOptions = document.querySelector('.video-options>select');
 const video = document.querySelector('video');
 const canvas = document.querySelector('canvas');
-const screenshotImage = document.querySelector('img');
+const screenshotImage = document.querySelector('#capture');
 const buttons = [...controls.querySelectorAll('button')];
 let streamStarted = false;
 

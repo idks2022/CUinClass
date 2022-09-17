@@ -29,10 +29,9 @@ def fr_image(request):
                 if student.name == cleanName:
                     student.signed = True
                     student.save()
-                    return HttpResponse(content = answer)
-                else: 
-                    return HttpResponse(content = None)
-
+                    return HttpResponse(content = answer) 
+            return HttpResponse(content = None)
+        
         return HttpResponse(content = answer) 
 
 def report(response):
