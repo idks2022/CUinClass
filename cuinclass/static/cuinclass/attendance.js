@@ -91,7 +91,7 @@ const doScreenshot = () => {
   canvas.height = video.videoHeight;
   canvas.getContext('2d').drawImage(video, 0, 0);
   screenshotImage.src = canvas.toDataURL();
-  sendImage(screenshotImage.src)
+  sendImage(screenshotImage.src);
   screenshotImage.classList.remove('d-none');
 
 };
@@ -106,7 +106,8 @@ const sendImage = async (image) => {
     alertbox.className = "alert alert-info d-flex align-items-center";
     alerticon.setAttribute("href","#info-fill");
     spinner.setAttribute("hidden","False");
-    const url = "http://localhost:8000/fr-image/";
+    // const url = "http://localhost:8000/fr-image/";
+    const url = "https://cuinclass-app-xbilh.ondigitalocean.app/fr-image/";
     try {
       const response = await axios.post(url, image);
       console.log(response.data);
