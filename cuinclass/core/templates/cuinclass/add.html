@@ -1,0 +1,12 @@
+{% extends 'cuinclass/base.html' %}
+
+{% block content %}
+add student
+<form method="post" enctype="multipart/form-data" action="/add/">
+    {% csrf_token %}
+    {{form.as_p}}
+
+    <button type="submit", name="save">Create New</button>
+</form>
+
+{% endblock content %}
