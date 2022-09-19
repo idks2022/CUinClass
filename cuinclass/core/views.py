@@ -1,8 +1,9 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 from core.fr.awsfuncs import find_face
 import base64
+from .forms import UploadForm
 from .models import Session, Student
 
 
@@ -45,3 +46,13 @@ def report(response):
             
     return render(response, 'cuinclass/report.html', {"session":session})
 
+def add(request):
+    if request.POST:
+        form = UploadForm(request.POST, request.FILES)
+        print(request.FILES)
+        print(request.POST['name'])
+        if form.is_valid():
+            form.save()
+        
+        return redirect(attendance)
+    return render(request, 'cuinclass/add.html', {'form' : UploadForm})

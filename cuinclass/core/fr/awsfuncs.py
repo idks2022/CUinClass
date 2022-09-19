@@ -94,26 +94,57 @@ def delete_collection(collection_id):
     # return(status_code)
     print('Status code: ' + str(status_code))
 
- 
-def add_faces_to_collection(bucket,image,collection_id):
+#from outside s3 bucket
+# def add_faces_to_collection(image,collection_id): 
 
-    def extract_filename(fname_or_url: str) -> str:
-        import re
-        return re.split('[\\\/]', fname_or_url)[-1]
+#     def extract_filename(fname_or_url: str) -> str:
+#         import re
+#         return re.split('[\\\/]', fname_or_url)[-1]
     
-    # client=boto3.client('rekognition') //line16
+#     # client=boto3.client('rekognition') //line16
+
+#     response=client.index_faces(CollectionId=collection_id,
+#                                 Image={'Bytes': get_image(image)},
+#                                 ExternalImageId=extract_filename(image) ,
+#                                 MaxFaces=1,
+#                                 QualityFilter="AUTO",
+#                                 DetectionAttributes=['ALL'])
+
+#     print ('Results for ' + image) 	
+#     print('Faces indexed:')						
+#     for faceRecord in response['FaceRecords']:
+#          print('  Face ID: ' + faceRecord['Face']['FaceId'])
+#          print('  External Image Id: ' + faceRecord['Face']['ExternalImageId'])
+#          print('  Location: {}'.format(faceRecord['Face']['BoundingBox']))
+
+#     print('Faces not indexed:')
+#     for unindexedFace in response['UnindexedFaces']:
+#         print(' Location: {}'.format(unindexedFace['FaceDetail']['BoundingBox']))
+#         print(' Reasons:')
+#         for reason in unindexedFace['Reasons']:
+#             print('   ' + reason)
+#     # print("Faces indexed count: " + str('FaceRecords'))
+#     # return len(response['FaceRecords'])
+
+#from s3 bucket
+def add_faces_to_collection(bucket,photo,name,collection_id):
+
+
+    
+    # client=boto3.client('rekognition')//line15
 
     response=client.index_faces(CollectionId=collection_id,
-                                Image={'Bytes': get_image(image)},
-                                ExternalImageId=extract_filename(image) ,
+                                Image={'S3Object':{'Bucket':bucket,'Name':name}},
+                                ExternalImageId=photo,
                                 MaxFaces=1,
                                 QualityFilter="AUTO",
                                 DetectionAttributes=['ALL'])
 
-    print ('Results for ' + image) 	
+    print ('Results for ' + photo) 	
     print('Faces indexed:')						
     for faceRecord in response['FaceRecords']:
          print('  Face ID: ' + faceRecord['Face']['FaceId'])
+         print('  External Image Id: ' + faceRecord['Face']['ExternalImageId'])
          print('  Location: {}'.format(faceRecord['Face']['BoundingBox']))
 
     print('Faces not indexed:')
@@ -122,8 +153,8 @@ def add_faces_to_collection(bucket,image,collection_id):
         print(' Reasons:')
         for reason in unindexedFace['Reasons']:
             print('   ' + reason)
-    print("Faces indexed count: " + str('FaceRecords'))
-    # return len(response['FaceRecords'])
+    return len(response['FaceRecords'])
+
 
 def list_faces_in_collection(collection_id):
     
@@ -200,10 +231,11 @@ def main():
     # delete_collection('studentsCollection')
     # upload_image('cuinclass/core/fr/facesToCollection/Idan.jpg')
     
-    # Gal = 'cuinclass/core/fr/facesToCollection/Gal_Sadres.jpg'
-    # Idan = 'cuinclass/core/fr/facesToCollection/Idan_Kashi.jpg'
+    # Gal = 'cuinclass/core/fr/facesToCollection/galsadres.jpg'
+    Idan = 'http://127.0.0.1:8000/media/cuinclass/media/uploads/Idan_Kashi.jpg'
     # Rey = 'cuinclass/core/fr/facesToCollection/Rey_Hadas.jpg'
-    # add_faces_to_collection('cuinclass',Rey,'students')
+    # add_faces_to_collection(Idan,'students')
+    # add_faces_to_collection('custudents','Rey_Hadas.jpg','students')
 
     # imageToScan = 'cuinclass/core/fr/imagesToScan/sarah.jpg'
     # find_face('students', imageToScan)
