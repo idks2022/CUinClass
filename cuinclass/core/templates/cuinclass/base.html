@@ -23,14 +23,28 @@
 
     <div class="display-cover">
         <div class="btn-group" role="group" aria-label="Basic outlined example">
-            <button type="button" class="btn btn-outline-primary" onclick="location.href='/admin'">manage</button>
-            <button type="button" class="btn btn-outline-primary" onclick="location.href='/'">check-in</button>
             <button type="button" class="btn btn-outline-primary" onclick="location.href='/report'">report</button>
+            <button type="button" class="btn btn-outline-primary" onclick="location.href='/'">check-in</button>
+            <div class="btn-group" role="group">
+                <button id="btnGroupDrop1" type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                manage
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                  <li><a class="dropdown-item" href="/add">add student</a></li>
+                  <li><a class="dropdown-item" href="/admin/core/student/">admin page</a></li>
+                </ul>
+              </div>
         </div>
     </div>
 
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-md-auto">
     {% block content %}
     {% endblock content %}
+            </div>
+        </div>
+    </div>
     
 </body>
 </html>

@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib import messages
 from core.fr.awsfuncs import find_face, add_faces_to_collection
 import base64
 from .forms import UploadForm
@@ -66,10 +67,12 @@ def add(request):
             try:
                 uploadToS3 = add_faces_to_collection('custudents',studentImageName,studentNameToCollection,'students')
                 print("face image uploaded to collection successfully")
+                messages.success(request, 'Student has been added successfully')
             except Exception as e:
                 print("face image upload to collection failed!")
                 student.delete()
                 print("object removed from database")
+                messages.error(request, 'Invalid form submission. Make sure you upload a clear image of your face')
             #done uploading face to collection
             
         

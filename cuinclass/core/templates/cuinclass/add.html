@@ -1,12 +1,23 @@
 {% extends 'cuinclass/base.html' %}
 
 {% block content %}
-add student
-<form method="post" enctype="multipart/form-data" action="/add/">
-    {% csrf_token %}
-    {{form.as_p}}
 
-    <button type="submit", name="save">Create New</button>
-</form>
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+
+            <form method="post" enctype="multipart/form-data" action="/add/">
+                {% csrf_token %}
+                {{form.as_p}}
+                <p>*This image will serve for further facial recognition,
+                    <br></br>choose <mark>clear</mark>, <mark>lighted</mark>, <mark>face-only</mark> image.</p>
+                <div class="d-grid gap-2">
+                    <button class="btn btn-outline-success" type="submit", name="save">Submit</button>
+                </div>
+            </form>
 
 {% endblock content %}

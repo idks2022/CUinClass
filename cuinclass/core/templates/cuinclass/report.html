@@ -2,15 +2,14 @@
 {% block content %}
 {% load static %}
 
-<div class="container">
-    <div class="row justify-content-md-center">
-        <div class="col-md-auto">
             <h4>Students who checked in for the class:</h4>
             <table class="table">
                 <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Student</th>
+                    <th scope="col">ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Updated at</th>
                 </tr>
                 <tbody class="tbody">
 
@@ -18,7 +17,9 @@
                         <tr>
                             {% if student.signed == True %}
                             <th scope="row" class="trow"></th>
+                                <td>{{student.id}}</th>
                                 <td>{{student.name}}</th>
+                                <td>{{student.updated}}</th>
                             {% endif %}
                         </tr>
                         {% endfor %}
@@ -46,8 +47,5 @@
                     </div>
                 </form>
             </div>
-        </div>
-    </div>
-</div>
 
 {% endblock content %}

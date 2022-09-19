@@ -11,3 +11,4 @@ class UploadForm(ModelForm):
     class Meta:
         model = Student
         fields = ['session', 'id', 'name', 'image',]
+        help_texts = {'session':"Class to appand",'id':"Personal ID", 'name':"Firstname Lastname",}
