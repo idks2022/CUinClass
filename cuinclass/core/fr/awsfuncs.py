@@ -1,11 +1,10 @@
 import boto3 
-# from core.fr.image_loaders import get_image
+from core.fr.image_loaders import get_image
 from botocore.exceptions import ClientError
 # from cuinclass.settings import AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_STORAGE_BUCKET_NAME, AWS_REGION
 import os
 from dotenv import load_dotenv
 load_dotenv()
-
 #AWS credentials read from .env file (locally) or environment variables when deployed on server
 AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
@@ -130,7 +129,7 @@ def delete_collection(collection_id):
 def add_faces_to_collection(bucket,photo,name,collection_id):
     
     # client=boto3.client('rekognition')//line15
-
+    print("add faces to collection function started")
     response=client.index_faces(CollectionId=collection_id,
                                 Image={'S3Object':{'Bucket':bucket,'Name':photo}},
                                 ExternalImageId=name,
@@ -151,6 +150,7 @@ def add_faces_to_collection(bucket,photo,name,collection_id):
         print(' Reasons:')
         for reason in unindexedFace['Reasons']:
             print('   ' + reason)
+    
     return len(response['FaceRecords'])
 
 
@@ -224,7 +224,7 @@ def find_face(collection_id, image):
 
 def main():
     # create_collection('students')
-    list_collections()
+    # list_collections()
     # describe_collection('students')
     # delete_collection('studentsCollection')
     # upload_image('cuinclass/core/fr/facesToCollection/Idan.jpg')
@@ -235,13 +235,13 @@ def main():
     # imageToScan = 'cuinclass/core/fr/imagesToScan/sarah.jpg'
     # find_face('students', imageToScan)
     
-    faces_count=list_faces_in_collection('students')
-    print("faces count: " + str(faces_count))
-    
     # faces=[]
-    # faces.append("843fe7fa-5a8e-429e-a5e4-2840d9af332f")
+    # faces.append("1a975d85-d7dd-491b-99f6-aa2890c793aa")
     # faces_count=delete_faces_from_collection('students', faces)
     # print("deleted faces count: " + str(faces_count))
+    
+    faces_count=list_faces_in_collection('students')
+    print("faces count: " + str(faces_count))
 
 if __name__ == "__main__":
     main()

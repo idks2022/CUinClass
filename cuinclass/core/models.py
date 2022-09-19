@@ -16,7 +16,7 @@ class Student(models.Model):
      name = models.CharField(max_length=20)
      signed = models.BooleanField(null=True, blank=True)
      updated = models.DateTimeField(auto_now=True, null=True, blank=True)
-     image = models.ImageField(upload_to='cuinclass/media/uploads', null=False)
+     image = models.ImageField(upload_to='', null=False)
      
      
      def __str__(self):

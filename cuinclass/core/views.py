@@ -22,16 +22,12 @@ def fr_image(request):
         answer = find_face('students', "imageToSave.png")
         
         if(answer):
-            responseText = answer
-            splitText = responseText.split(".")
-            cleanName = splitText[0]
             session = Session.objects.get(id=1)
-
             for student in session.student_set.all():
-                if student.name == cleanName:
+                if str(student.id) == str(answer):
                     student.signed = True
                     student.save()
-                    return HttpResponse(content = answer) 
+                    return HttpResponse(content = str(student.name))
             return HttpResponse(content = None)
         
         return HttpResponse(content = answer) 
@@ -53,28 +49,33 @@ def add(request):
         print(request.FILES)
         if form.is_valid():
             form.save()
+            print("form saved")
             #uploading the saved image to s3 collection for 'rekognition'
             student = Student.objects.get(id=request.POST['id'])
-            studentNameRaw = student.name
-            studentNameSplit = studentNameRaw.split(" ")
-            studentNameToCollection = studentNameSplit[0]+"_"+studentNameSplit[1] #correct image name format
-            print(studentNameToCollection+" saved to database") 
-            studentImagePath = student.image
-            studentImagePathSplit = str(studentImagePath).split("/")
-            studentImageName = studentImagePathSplit[3] #correct image path format
-            print(studentImageName)
+            studentID = str(student.id)
+            print("external Image ID = student ID = "+studentID)
+            # studentNameRaw = student.name
+            # studentNameSplit = studentNameRaw.split(" ")
+            # studentNameToCollection = studentNameSplit[0]+"_"+studentNameSplit[1] #correct image name format (First_Last)
+            print(studentID+" saved to database") 
+            studentImage = str(student.image)
+            print(studentImage)
             global uploadToS3
             try:
-                uploadToS3 = add_faces_to_collection('custudents',studentImageName,studentNameToCollection,'students')
-                print("face image uploaded to collection successfully")
-                messages.success(request, 'Student has been added successfully')
+                uploadToS3 = add_faces_to_collection('custudents',studentImage,studentID,'students')
+                if(uploadToS3):
+                    print("face image uploaded to collection successfully")
+                    messages.success(request, 'Student has been successfully added to database')
+                else: 
+                    student.delete()
+                    print("Face was not detected, object removed from database.")
+                    messages.error(request, 'Face was not detected, student was not added to database.')
             except Exception as e:
                 print("face image upload to collection failed!")
                 student.delete()
                 print("object removed from database")
-                messages.error(request, 'Invalid form submission. Make sure you upload a clear image of your face')
-            #done uploading face to collection
+                messages.error(request, 'Error submitting the form, if error recurrent check with the IT.')
+            # done uploading face to collection
             
-        
-        return redirect(add)
+        # return redirect(add)
     return render(request, 'cuinclass/add.html', {'form' : UploadForm})
