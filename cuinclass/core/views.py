@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
-from core.fr.awsfuncs import find_face
+from core.fr.awsfuncs import find_face, add_faces_to_collection
 import base64
 from .forms import UploadForm
 from .models import Session, Student
@@ -50,9 +50,28 @@ def add(request):
     if request.POST:
         form = UploadForm(request.POST, request.FILES)
         print(request.FILES)
-        print(request.POST['name'])
         if form.is_valid():
             form.save()
+            #uploading the saved image to s3 collection for 'rekognition'
+            student = Student.objects.get(id=request.POST['id'])
+            studentNameRaw = student.name
+            studentNameSplit = studentNameRaw.split(" ")
+            studentNameToCollection = studentNameSplit[0]+"_"+studentNameSplit[1] #correct image name format
+            print(studentNameToCollection+" saved to database") 
+            studentImagePath = student.image
+            studentImagePathSplit = str(studentImagePath).split("/")
+            studentImageName = studentImagePathSplit[3] #correct image path format
+            print(studentImageName)
+            global uploadToS3
+            try:
+                uploadToS3 = add_faces_to_collection('custudents',studentImageName,studentNameToCollection,'students')
+                print("face image uploaded to collection successfully")
+            except Exception as e:
+                print("face image upload to collection failed!")
+                student.delete()
+                print("object removed from database")
+            #done uploading face to collection
+            
         
-        return redirect(attendance)
+        return redirect(add)
     return render(request, 'cuinclass/add.html', {'form' : UploadForm})

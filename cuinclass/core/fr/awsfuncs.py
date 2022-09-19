@@ -1,5 +1,5 @@
 import boto3 
-from core.fr.image_loaders import get_image
+# from core.fr.image_loaders import get_image
 from botocore.exceptions import ClientError
 # from cuinclass.settings import AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_STORAGE_BUCKET_NAME, AWS_REGION
 import os
@@ -128,14 +128,12 @@ def delete_collection(collection_id):
 
 #from s3 bucket
 def add_faces_to_collection(bucket,photo,name,collection_id):
-
-
     
     # client=boto3.client('rekognition')//line15
 
     response=client.index_faces(CollectionId=collection_id,
-                                Image={'S3Object':{'Bucket':bucket,'Name':name}},
-                                ExternalImageId=photo,
+                                Image={'S3Object':{'Bucket':bucket,'Name':photo}},
+                                ExternalImageId=name,
                                 MaxFaces=1,
                                 QualityFilter="AUTO",
                                 DetectionAttributes=['ALL'])
@@ -231,20 +229,17 @@ def main():
     # delete_collection('studentsCollection')
     # upload_image('cuinclass/core/fr/facesToCollection/Idan.jpg')
     
-    # Gal = 'cuinclass/core/fr/facesToCollection/galsadres.jpg'
-    Idan = 'http://127.0.0.1:8000/media/cuinclass/media/uploads/Idan_Kashi.jpg'
-    # Rey = 'cuinclass/core/fr/facesToCollection/Rey_Hadas.jpg'
-    # add_faces_to_collection(Idan,'students')
+    # add_faces_to_collection(Gal,'students')
     # add_faces_to_collection('custudents','Rey_Hadas.jpg','students')
 
     # imageToScan = 'cuinclass/core/fr/imagesToScan/sarah.jpg'
     # find_face('students', imageToScan)
     
-    # faces_count=list_faces_in_collection('students')
-    # print("faces count: " + str(faces_count))
+    faces_count=list_faces_in_collection('students')
+    print("faces count: " + str(faces_count))
     
     # faces=[]
-    # faces.append("f45b9217-3175-4cd4-8ad7-c12284547ae2")
+    # faces.append("843fe7fa-5a8e-429e-a5e4-2840d9af332f")
     # faces_count=delete_faces_from_collection('students', faces)
     # print("deleted faces count: " + str(faces_count))
 
