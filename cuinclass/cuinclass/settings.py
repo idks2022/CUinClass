@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'core.apps.CoreConfig',
     'bootstrap5',
     'corsheaders',
+    'storages',
 ]
 
 MIDDLEWARE = [
