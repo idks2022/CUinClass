@@ -76,6 +76,8 @@ def add(request):
                 print("object removed from database")
                 messages.error(request, 'Error submitting the form, if error recurrent check with the IT.')
             # done uploading face to collection
-            
-        # return redirect(add)
+        else: #if form.is_valid==False
+            messages.warning(request, 'Form is not valid:') 
+            messages.warning(request, form.errors)
+    
     return render(request, 'cuinclass/add.html', {'form' : UploadForm})

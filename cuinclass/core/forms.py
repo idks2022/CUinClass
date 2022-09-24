@@ -1,3 +1,4 @@
+from cProfile import label
 from dataclasses import fields
 from .models import *
 from django.forms import ModelForm
@@ -11,4 +12,4 @@ class UploadForm(ModelForm):
     class Meta:
         model = Student
         fields = ['session', 'id', 'name', 'image',]
-        help_texts = {'session':"Class to appand",'id':"Personal ID", 'name':"Firstname Lastname",}
+        labels = {'session':"Class to appand",'id':"Personal ID", 'name':"Full name", 'image':"Face image", }

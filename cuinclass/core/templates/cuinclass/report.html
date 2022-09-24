@@ -2,7 +2,7 @@
 {% block content %}
 {% load static %}
 
-            <h4>Students who checked in for the class:</h4>
+            <h4>Students checked in for class:</h4>
             <table class="table">
                 <thead>
                 <tr>
@@ -32,7 +32,7 @@
                     Students who checked in for: {{session}}%0D%0A
                     {% for student in session.student_set.all %}
                         {% if student.signed == True %}
-                        %0D%0A{{student.name}}
+                        %0D%0A{{student.name}}, {{student.id}}, {{student.updated}}
                         {% endif %}
                     {% endfor %}
                     %0D%0A

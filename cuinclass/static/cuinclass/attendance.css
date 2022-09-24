@@ -16,9 +16,19 @@
     justify-content: center;
     align-items: center;
     width: 90%;
-    margin: 2.5% auto;
+    margin: 1% auto;
     position: relative;
 }
+
+.display-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    margin: 1% auto;
+    position: relative;
+}
+
 
 video {
     width: 100%;
