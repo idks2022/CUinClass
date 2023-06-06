@@ -5,7 +5,7 @@ backcall==0.2.0
 beautifulsoup4==4.11.1
 boto3==1.24.51
 botocore==1.27.51
-certifi==2022.6.15
+certifi>=2022.12.07
 charset-normalizer==2.1.1
 colorama==0.4.5
 debugpy==1.6.3
@@ -21,7 +21,7 @@ executing==0.10.0
 gunicorn==20.1.0
 idna==3.3
 ipykernel==6.15.1
-ipython==8.4.0
+IPython>=8.10
 jedi==0.18.1
 jmespath==1.0.1
 jupyter-client==7.3.4
@@ -51,13 +51,13 @@ python-dotenv==0.21.0
 pytweening==1.0.4
 # pywin32==304
 pyzmq==23.2.1
-requests==2.28.1
+requests>=2.31.0
 s3transfer==0.6.0
 six==1.16.0
 soupsieve==2.3.2.post1
-sqlparse==0.4.2
+sqlparse>=0.4.4
 stack-data==0.4.0
-tornado==6.2
+tornado>=6.3.2
 traitlets==5.3.0
 tzdata==2022.2
 urllib3==1.26.11
